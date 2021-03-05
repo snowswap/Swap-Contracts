@@ -19,8 +19,11 @@ task("accounts", "Prints the list of accounts", async () => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: "localhost",
   networks: {
+    localhost: {
+      uri: "http://127.0.0.1:8545",
+    },
     hardhat: {
       forking: {
         url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
@@ -31,7 +34,7 @@ module.exports = {
     version: "0.2.8",
   },
   solidity: {
-    version: "0.5.16",
+    version: "0.6.12",
     settings: {
       optimizer: {
         enabled: true,

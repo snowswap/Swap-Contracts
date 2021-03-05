@@ -1,7 +1,8 @@
 {
   "scripts": {
     "run-node": "hardhat node",
-    "deploy": "hardhat run ./scripts/deploy.js"
+    "deploy": "hardhat run ./scripts/deploy.js",
+    "deposit": "hardhat run ./scripts/deposit.js"
   },
   "dependencies": {
     "hardhat": "^2.1.0"
