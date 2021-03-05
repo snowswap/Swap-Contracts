@@ -16,10 +16,11 @@ async function main() {
 
   // We get the contract to deploy
 
-  const [owner, addr1] = await ethers.getSigners();
+  const [owner] = await ethers.getSigners();
+  const recipient = "0xe8fed9d7b9e7ed19671ee35f169db6f007b2ffd4";
 
   const transactionRequest = {
-    to: "0xe8fed9d7b9e7ed19671ee35f169db6f007b2ffd4",
+    to: recipient,
     from: owner.address,
     value: hre.ethers.BigNumber.from("90000000000000000000"),
     chainId: 0,
