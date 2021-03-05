@@ -29,9 +29,9 @@ async function main() {
   console.log("Deployed Lp Token Contract: ", lpContract.address);
 
   const USDC = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
-  const FUSDC = "0xc3f7ffb5d5869b3ade9448d094d81b0521e8326f";
-  const FUSDT = "0xc7ee21406bb581e741fbb8b21f213188433d9f2f";
-  const FDAI = "0xe85c8581e60d7cd32bbfd86303d2a4fa6a951dac";
+  const FUSDC = "0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE";
+  const FUSDT = "0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C";
+  const FDAI = "0xab7fa2b2985bccfc13c6d86b1d5a17486ab1e04c";
   const _A = 70;
   const _fee = 4000000;
   const _admin_fee = 0;
