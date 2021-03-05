@@ -25,7 +25,6 @@ async function main() {
   const lpContract = await lpContractArtifact.deploy("Snow usdc/fusdc/fusdt/fdai", "usdc/fusdc/fusdt/fdai");
 
   await lpContract.deployed();
-  // await lo.mint('0xe5c382532179e5086ef8e862c6e13d331a3618da', hre.ethers.BigNumber.from('2000000000000000000000'));
 
   console.log("Deployed Lp Token Contract: ", lpContract.address);
 
@@ -53,7 +52,7 @@ async function main() {
     _admin_fee
   );
 
-  await stableSwap.deployed();
+  await stableSwapContract.deployed();
   console.log("StableSwap contract has been deployed: ", stableSwapContract.address);
 
   // @notice: Set the swap contract address as minter on lp contract
