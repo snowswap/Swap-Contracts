@@ -22,7 +22,7 @@ async function main() {
   console.log("Deploying contracts with the account:", owner.address);
 
   const lpContractArtifact = await hre.ethers.getContractFactory("LpTokenV3");
-  const lpContract = await lpContractArtifact.deploy("Snow usdc/fusdc/fusdt/fdai", "usdc/fusdc/fusdt/fdai");
+  const lpContract = await lpContractArtifact.deploy("Snow usdc/fusdc/fusdt/fdai", "fusdSnow");
 
   await lpContract.deployed();
 
