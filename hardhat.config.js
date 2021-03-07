@@ -19,7 +19,7 @@ task("accounts", "Prints the list of accounts", async () => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "localhost",
+  defaultNetwork: "hardhat",
   networks: {
     localhost: {
       uri: "http://127.0.0.1:8545",
@@ -27,6 +27,10 @@ module.exports = {
     hardhat: {
       forking: {
         url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
+      },
+      accounts: {
+        mnemonic: "neglect debate govern tell obtain sniff drill hover cat position draw list",
+        accountsBalance: "10000000000000000000000",
       },
     },
   },

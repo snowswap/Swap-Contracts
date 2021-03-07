@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "prep": "hardhat run ./scripts/buyUSDC.js --no-compile --network localhost",
     "run-node": "hardhat node",
     "deploy": "hardhat run ./scripts/deploy.js",
     "deposit": "hardhat run ./scripts/deposit.js",
