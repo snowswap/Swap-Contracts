@@ -60,8 +60,7 @@ describe("Swapping Contracts", function () {
 
   describe("Add Liqudity", function () {
     // Requires all 4 coins for initial deposit
-
-    it("Deposit each 60 assets as initilazing the", async function () {
+    it("Should have the exact amount of assets after the initializing of the Liqudity pool", async function () {
       const contractUsdc = await ethers.getContractAt(usdcABI, USDC);
       await contractUsdc.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
 
@@ -76,7 +75,15 @@ describe("Swapping Contracts", function () {
 
       await swap.add_liquidity(["60000000", "60000000", "60000000", "60000000000000000000"], 0);
 
-      console.log("240 liqudity has been added");
+      const usdcBalance = await swap.balances(0);
+      const fusdcBalance = await swap.balances(1);
+      const fusdtBalance = await swap.balances(2);
+      const fdaiBalance = await swap.balances(3);
+
+      expect(usdcBalance).to.equal("60000000");
+      expect(fusdcBalance).to.equal("60000000");
+      expect(fusdtBalance).to.equal("60000000");
+      expect(fdaiBalance).to.equal("60000000000000000000");
     });
   });
 });
