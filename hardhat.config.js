@@ -25,6 +25,7 @@ module.exports = {
   networks: {
     localhost: {
       uri: "http://127.0.0.1:8545",
+      chainId: 1337,
     },
     hardhat: {
       forking: {

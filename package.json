@@ -2,9 +2,11 @@
   "scripts": {
     "prep": "hardhat run ./scripts/buyUSDC.js --no-compile --network localhost",
     "run-node": "hardhat node",
+    "compile": "hardhat compile",
     "deploy": "hardhat run ./scripts/deploy.js",
     "deposit": "hardhat run ./scripts/deposit.js",
-    "test": "hardhat test"
+    "test-script": "hardhat run ./scripts/test.js --no-compile --network localhost",
+    "test": "hardhat test --network localhost"
   },
   "dependencies": {
     "@openzeppelin/test-helpers": "^0.5.10",

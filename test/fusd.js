@@ -1,11 +1,14 @@
 const { expect } = require("chai");
+const { BigNumber } = require("ethers");
+const usdcABI = require("../abi/usdc.json");
+const fvault = require("../abi/fvault.json");
 
 describe("Swapping Contracts", function () {
-  const OwnerAddress = "0xE8fed9d7b9E7eD19671ee35f169db6F007b2FFd4";
+  const OwnerAddress = "0x4FB2bb19Df86feF113b2016E051898065f963CC5";
   const USDC = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
   const FUSDC = "0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE";
   const FUSDT = "0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C";
-  const FDAI = "0xab7fa2b2985bccfc13c6d86b1d5a17486ab1e04c";
+  const FDAI = "0xab7FA2B2985BCcfC13c6D86b1D5A17486ab1e04C";
   const _A = 70;
   const _fee = 4000000;
   const _admin_fee = 0;
@@ -52,6 +55,28 @@ describe("Swapping Contracts", function () {
 
     it("Should have the right lp token", async function () {
       expect(await swap.lp_token()).to.equal(lpToken.address);
+    });
+  });
+
+  describe("Add Liqudity", function () {
+    // Requires all 4 coins for initial deposit
+
+    it("Deposit each 60 assets as initilazing the", async function () {
+      const contractUsdc = await ethers.getContractAt(usdcABI, USDC);
+      await contractUsdc.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+
+      const contractFusdc = await ethers.getContractAt(fvault, FUSDC);
+      await contractFusdc.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+
+      const contractFusdt = await ethers.getContractAt(fvault, FUSDT);
+      await contractFusdt.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+
+      const contractFdai = await ethers.getContractAt(fvault, FDAI);
+      await contractFdai.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+
+      await swap.add_liquidity(["60000000", "60000000", "60000000", "60000000000000000000"], 0);
+
+      console.log("240 liqudity has been added");
     });
   });
 });
