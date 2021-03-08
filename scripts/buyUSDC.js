@@ -34,9 +34,7 @@ async function main() {
   let overrides = {
     value: ethers.utils.hexValue(BigNumber.from("100000000000000000000").toHexString()),
   };
-  const swap = await contract.swapExactETHForTokens("1", [WETH_TOKEN, USDC_TOKEN], pubAddr, "1713093319", overrides);
-  const result = await swap.wait();
-
+  await contract.swapExactETHForTokens("1", [WETH_TOKEN, USDC_TOKEN], pubAddr, "1713093319", overrides);
   console.log("swapped 100ETH to USDC");
 }
 

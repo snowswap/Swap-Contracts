@@ -2,6 +2,8 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-vyper");
 
+require("dotenv").config();
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async () => {
@@ -29,9 +31,10 @@ module.exports = {
         url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
       },
       accounts: {
-        mnemonic: "neglect debate govern tell obtain sniff drill hover cat position draw list",
+        mnemonic: process.env.MEMONIC_KEY,
         accountsBalance: "10000000000000000000000",
       },
+      chainId: 1337,
     },
   },
   vyper: {

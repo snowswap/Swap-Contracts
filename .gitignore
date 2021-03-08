@@ -8,3 +8,5 @@ artifacts
 *.lock
 
 package-lock.json
+
+.env
