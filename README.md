@@ -8,6 +8,8 @@
 
   \*\* NOTE: Please remember the deployed address you can check this on your terminal
 
+  **EXAMPLE:**
+
   > **Deploying contracts with the account**: 0x11D70f3cFd7f5e9B77640cBb522eB9299cFf5aCd  
   > **Deployed Lp Token Contract**: 0xA9530926Ceb4904a0F8d90Ccc5c6fD74851C82f0  
   > **StableSwap contract has been deployed**: 0x051fdaEd31f416877BAB9a76cDCD2ba29d413858  
