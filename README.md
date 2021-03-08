@@ -13,9 +13,11 @@
   > **StableSwap contract has been deployed**: 0x051fdaEd31f416877BAB9a76cDCD2ba29d413858  
   > **Minter address has been set!**
 
-- `yarn test` to run the test scripts.
+- `yarn test`
+  Mocha will run the `/test/fusd.js` script. This will deploy the Lptoken and StableSwapping contract. After that, it will try to deposit each **60** assests to the pool. If all tests cases are successful, this means everything is fine.
+- Extra Test
+  After run `yarn test`, the Swap contract is being deployed on the localhost(mainnet-fork).
 
-  - `test/fusd.js` : USDC, FUSDC, FUSDT, FDAI
-  - `test/xxxx.js` : ...
+  In this case, we are free to make some task script on `/scripts/test.js`
 
-- `yarn deposit` to deposit some fake **ETH** to the specific account
+  By running `yarn test-script` the hardhat will run this script. Example test task script is exsit on `scripts` folder. Currently, it's fetching the lptoken virtual price and the quote of exchange to target token.
