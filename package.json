@@ -5,6 +5,9 @@
     "compile": "hardhat compile",
     "deploy": "hardhat run ./scripts/deploy.js",
     "deposit": "hardhat run ./scripts/deposit.js",
+    "balance": "hardhat run ./scripts/checkBalance.js",
+    "add-f": "hardhat run ./scripts/addLiquidity.js",
+    "full-test": "hardhat run ./scripts/combined.js --no-compile",
     "test-script": "hardhat run ./scripts/test.js --no-compile --network localhost",
     "test": "hardhat test --network localhost"
   },
