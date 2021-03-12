@@ -1,6 +1,6 @@
 # @version ^0.2.0
 """
-@title Curve LP Token
+@title Snow fAssets LP Token
 @author Curve.Fi
 @notice Base implementation for an LP token provided for
         supplying liquidity to `StableSwap`
@@ -12,7 +12,7 @@ from vyper.interfaces import ERC20
 
 implements: ERC20
 
-interface Curve:
+interface Snow:
     def owner() -> address: view
 
 
@@ -187,6 +187,6 @@ def set_minter(_minter: address):
 
 @external
 def set_name(_name: String[64], _symbol: String[32]):
-    assert Curve(self.minter).owner() == msg.sender
+    assert Snow(self.minter).owner() == msg.sender
     self.name = _name
     self.symbol = _symbol
