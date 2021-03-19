@@ -9,9 +9,9 @@ describe("Swapping Contracts", function () {
   const FUSDC = "0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE";
   const FUSDT = "0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C";
   const FDAI = "0xab7FA2B2985BCcfC13c6D86b1D5A17486ab1e04C";
-  const _A = 70;
-  const _fee = 4000000;
-  const _admin_fee = 0;
+  const _A = 10;
+  const _fee = 4000000; // 0.04%
+  const _admin_fee = 5000000000; // 50%
 
   let lpToken;
   let swap;

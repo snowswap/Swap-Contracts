@@ -3,11 +3,9 @@
 //
 // When running the script with `hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-const { BigNumber } = require("ethers");
+const { ethers } = require("hardhat");
 const hre = require("hardhat");
-
-const stableSwapABI = require("../abi/stableSwap.json");
-const stableSwap = "0x0bF48CAE99B82D4fE215F3432Bb6D7c3B54e75e5";
+const swapABI = require("../abi/stableswap.json");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -18,20 +16,13 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const { ethers } = hre;
 
-  const contract = await ethers.getContractAt(stableSwapABI, stableSwap);
+  const swapAddr = "0x0bF48CAE99B82D4fE215F3432Bb6D7c3B54e75e5";
 
-  const lpPrice = await contract.get_virtual_price();
+  const swap = await ethers.getContractAt(swapABI, swapAddr);
+  const res = await swap.calc_token_amount(["19000000", "70000000", "70000000", "70000000000000000000"], false);
 
-  console.log("lpPrice: ", lpPrice.toString());
-
-  // Get the exchange quote between 10 FDAI = X USDC
-  const dy = await contract.get_dy(3, 0, "10000000000000000000");
-
-  // // Get the exchange quote between 10 USDC = X FDAI
-  // const dy = await contract.get_dy(0, 3, "10000000");
-  console.log("dy: ", dy.toString());
+  console.log(res.toString());
 }
 
 // We recommend this pattern to be able to use async/await everywhere
