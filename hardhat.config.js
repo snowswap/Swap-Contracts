@@ -27,6 +27,13 @@ module.exports = {
       uri: "http://127.0.0.1:8545",
       chainId: 1337,
     },
+    mainnet: {
+      url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
+      chainID: 1,
+      accounts: {
+        mnemonic: process.env.MEMONIC_KEY,
+      },
+    },
     hardhat: {
       forking: {
         url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
