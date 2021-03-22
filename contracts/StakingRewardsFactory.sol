@@ -681,51 +681,57 @@ contract Ownable {
 
 
 contract StakingRewardsFactory is Ownable {
-    // immutables
-    address public rewardsToken;
-    uint public stakingRewardsGenesis;
-
     // the staking tokens for which the rewards contract has been deployed
     address[] public stakingTokens;
 
     // info about rewards for a particular staking token
     struct StakingRewardsInfo {
         address stakingRewards;
-        uint rewardAmount;
+        address rewardsToken;
+        uint256 rewardsDuration;
     }
 
     // rewards info by staking token
     mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
 
-    constructor(
-        address _rewardsToken
-    ) Ownable() public {
-        rewardsToken = _rewardsToken;
-    }
+    constructor() Ownable() public {}
 
     ///// permissioned functions
 
+    ///@notice Update rewardsDuration value
+    function setRewardsDuration(address stakingToken, uint256 rewardsDuration) public onlyOwner {
+        StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
+        require(info.rewardsDuration != rewardsDuration, 'StakingRewardsFactory::setRewardsDuration: the new rewardsDuration value is same as before');
+
+        info.rewardsDuration = rewardsDuration;
+        StakingRewards(info.stakingRewards).setRewardsDuration(rewardsDuration);
+    }
+
     // deploy a staking reward contract for the staking token, and store the reward amount
     // the reward will be distributed to the staking reward contract no sooner than the genesis
-    function deploy(address stakingToken, uint rewardsDuration) public onlyOwner {
+    function deploy(address stakingToken, address rewardsToken, uint256 rewardsDuration) public onlyOwner {
+        require(rewardsToken != address(0), 'StakingRewardsFactory::deploy: RewardToken address cannot be ZERO');
+
         StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
         require(info.stakingRewards == address(0), 'StakingRewardsFactory::deploy: already deployed');
-
         // Args on the StakingRewards
         // address _owner,
         // address _rewardsDistribution,
         // address _rewardsToken,
         // address _stakingToken,
         // uint256 _rewardsDuration
+        info.rewardsDuration = rewardsDuration;
+        info.rewardsToken = rewardsToken;
         info.stakingRewards = address(new StakingRewards(owner(), address(this), rewardsToken, stakingToken, rewardsDuration));
         stakingTokens.push(stakingToken);
     }
 
     // Fallback function to return money to reward distributer via pool deployer
     // In case of issues or incorrect calls or errors
-    function refund(uint256 amount, address refundAddress) public onlyOwner {
+    function refund(address stakingToken, uint256 amount, address refundAddress) public onlyOwner {
+        StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
         require(
-            IERC20(rewardsToken).transfer(
+            IERC20(info.rewardsToken).transfer(
                 refundAddress,
                 amount
             ),
@@ -751,7 +757,7 @@ contract StakingRewardsFactory is Ownable {
         StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
         require(info.stakingRewards != address(0), 'StakingRewardsFactory::notifyRewardAmount: not deployed');
 
-        IERC20(rewardsToken).approve(info.stakingRewards, rewardAmount);
+        IERC20(info.rewardsToken).approve(info.stakingRewards, rewardAmount);
         StakingRewards(info.stakingRewards).notifyRewardAmount(rewardAmount);
     }
 }
