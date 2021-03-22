@@ -38,7 +38,7 @@ async function main() {
   // mined.
 
   const lpTokenArtifact = await ethers.getContractFactory("LpTokenV3");
-  lpToken = await lpTokenArtifact.deploy("SnowSwap USDC/fDAI/fUSDC/fUSDT", "fUSD");
+  lpToken = await lpTokenArtifact.deploy("SnowSwap USDC/fDAI/fUSDC/fUSDT", "fSnow");
 
   await lpToken.deployed();
 
