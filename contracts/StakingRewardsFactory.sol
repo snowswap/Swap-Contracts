@@ -698,13 +698,9 @@ contract StakingRewardsFactory is Ownable {
     mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
 
     constructor(
-        address _rewardsToken,
-        uint _stakingRewardsGenesis
+        address _rewardsToken
     ) Ownable() public {
-        require(_stakingRewardsGenesis >= block.timestamp, 'StakingRewardsFactory::constructor: genesis too soon');
-
         rewardsToken = _rewardsToken;
-        stakingRewardsGenesis = _stakingRewardsGenesis;
     }
 
     ///// permissioned functions
@@ -750,7 +746,6 @@ contract StakingRewardsFactory is Ownable {
     // notify reward amount for an individual staking token.
     // this is a fallback in case the notifyRewardAmounts costs too much gas to call for all contracts
     function notifyRewardAmount(address stakingToken, uint256 rewardAmount) public {
-        require(block.timestamp >= stakingRewardsGenesis, 'StakingRewardsFactory::notifyRewardAmount: not ready');
         require(rewardAmount > 0, 'StakingRewardsFactory::notifyRewardAmount: amount can not be ZERO');
 
         StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];

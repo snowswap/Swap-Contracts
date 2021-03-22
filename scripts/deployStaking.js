@@ -36,7 +36,7 @@ async function main() {
 
   console.log("Deployed Staking/Rewards Factory Contract: ", stContract.address);
 
-  await stContract.deploy(lpToken, 23587200);
+  await stContract.deploy(lpToken);
   const stakingRewards = await stContract.stakingRewardsInfoByStakingToken(lpToken);
   console.log("Staking Rewards Contract: ", stakingRewards);
 }
