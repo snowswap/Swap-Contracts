@@ -19,10 +19,10 @@ async function main() {
   const stakingAddr = "0x0482161E603B761493ed96CC42a81bfb18b40A34";
   const rewardAddr = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
-  const lp = "0xBa20Bbc0799B8654b5061668b272037d4881a0a8";
-  const st = await ethers.getContractAt(stakingABI, stakingAddr);
+  const lp = "0xBa20Bbc0799B8654b5061668b272037d4881a0a8"; // TODO: change the LP
+  const staking = await ethers.getContractAt(stakingABI, stakingAddr);
   const factory = await ethers.getContractAt(factoryABI, factoryAddr);
-  const rewardToken = await ethers.getContractAt(usdcABI, usdcAddr);
+  const rewardToken = await ethers.getContractAt(usdcABI, rewardAddr);
   // const stakingRewards = await st.deploy(snow, snow, rewardsDistribution);
 
   // uint256 public periodFinish = 0;
@@ -30,7 +30,7 @@ async function main() {
   // uint256 public rewardsDuration;
   // uint256 public lastUpdateTime;
   // uint256 public rewardPerTokenStored;
-  await st.setRewardsDuration(20 * 86400);
+  await staking.setRewardsDuration(20 * 86400);
   console.log("Set Rewards Duration Has been updated:", (await st.rewardsDuration()).toString());
 
   // You should send 10 rewards Tokens to factory contract first if not won't be run

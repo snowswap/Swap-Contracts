@@ -688,25 +688,12 @@ contract StakingRewardsFactory is Ownable {
     struct StakingRewardsInfo {
         address stakingRewards;
         address rewardsToken;
-        uint256 rewardsDuration;
     }
 
     // rewards info by staking token
     mapping(address => StakingRewardsInfo) public stakingRewardsInfoByStakingToken;
 
     constructor() Ownable() public {}
-
-    ///// permissioned functions
-
-    ///@notice Update rewardsDuration value
-    function setRewardsDuration(address stakingToken, uint256 rewardsDuration) public onlyOwner {
-        StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
-        require(info.rewardsDuration != rewardsDuration, 'StakingRewardsFactory::setRewardsDuration: the new rewardsDuration value is same as before');
-
-        info.rewardsDuration = rewardsDuration;
-        StakingRewards(info.stakingRewards).setRewardsDuration(rewardsDuration);
-    }
-
     // deploy a staking reward contract for the staking token, and store the reward amount
     // the reward will be distributed to the staking reward contract no sooner than the genesis
     function deploy(address stakingToken, address rewardsToken, uint256 rewardsDuration) public onlyOwner {
@@ -720,34 +707,11 @@ contract StakingRewardsFactory is Ownable {
         // address _rewardsToken,
         // address _stakingToken,
         // uint256 _rewardsDuration
-        info.rewardsDuration = rewardsDuration;
         info.rewardsToken = rewardsToken;
         info.stakingRewards = address(new StakingRewards(owner(), address(this), rewardsToken, stakingToken, rewardsDuration));
         stakingTokens.push(stakingToken);
     }
 
-    // Fallback function to return money to reward distributer via pool deployer
-    // In case of issues or incorrect calls or errors
-    function refund(address stakingToken, uint256 amount, address refundAddress) public onlyOwner {
-        StakingRewardsInfo storage info = stakingRewardsInfoByStakingToken[stakingToken];
-        require(
-            IERC20(info.rewardsToken).transfer(
-                refundAddress,
-                amount
-            ),
-            "StakingRewardsFactory::notifyRewardAmount: transfer failed"
-        );
-    }
-
-    ///// permissionless functions
-
-    // // call notifyRewardAmount for all staking tokens.
-    // function notifyRewardAmounts() public {
-    //     require(stakingTokens.length > 0, 'StakingRewardsFactory::notifyRewardAmounts: called before any deploys');
-    //     for (uint i = 0; i < stakingTokens.length; i++) {
-    //         notifyRewardAmount(stakingTokens[i]);
-    //     }
-    // }
 
     // notify reward amount for an individual staking token.
     // this is a fallback in case the notifyRewardAmounts costs too much gas to call for all contracts

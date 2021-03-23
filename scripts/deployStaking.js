@@ -21,8 +21,9 @@ async function main() {
 
   const [owner] = await ethers.getSigners();
   const snow = "0xfe9a29ab92522d14fc65880d817214261d8479ae"; //Rewards Token
-  const lpToken = "0x57Cc9B1b638a80B8Da6538C828225a388D9Ccf72"; // TODO: change the lpt token address
-  const rewardsDistribution = 2678400; //UNIX timestamp for 1month(31 days);
+  const usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+  const lpToken = "0xBa20Bbc0799B8654b5061668b272037d4881a0a8"; // TODO: change the lpt token address
+  const rewardsDistribution = 30 * 86400; //UNIX timestamp for 1month(31 days);
 
   console.log("Deploying contracts with the account:", owner.address);
   // To deploy our contract, we just have to call Token.deploy() and await
@@ -35,9 +36,9 @@ async function main() {
   await stContract.deployed();
 
   console.log("Deployed Staking/Rewards Factory Contract: ", stContract.address);
-  await stContract.deploy(lpToken, snow, rewardsDistribution);
-  const stakingRewards = await stContract.stakingRewardsInfoByStakingToken(lpToken);
-  console.log("deployed Staking Rewards Contract: ", stakingRewards);
+  const stakingRewards = await stContract.deploy(lpToken, usdc, rewardsDistribution);
+  await stakingRewards.wait();
+  console.log(await stContract.stakingRewardsInfoByStakingToken("0xBa20Bbc0799B8654b5061668b272037d4881a0a8"));
 }
 // 0x40217fF7480ec0606de61522D43Ad1c6C88e3EBF
 // We recommend this pattern to be able to use async/await everywhere
