@@ -21,7 +21,7 @@ async function main() {
 
   const [owner] = await ethers.getSigners();
   const snow = "0xfe9a29ab92522d14fc65880d817214261d8479ae"; //Rewards Token
-  const usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+  // const usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
   const lpToken = "0xBa20Bbc0799B8654b5061668b272037d4881a0a8"; // TODO: change the lpt token address
   const rewardsDistribution = 30 * 86400; //UNIX timestamp for 1month(31 days);
 
@@ -36,7 +36,7 @@ async function main() {
   await stContract.deployed();
 
   console.log("Deployed Staking/Rewards Factory Contract: ", stContract.address);
-  const stakingRewards = await stContract.deploy(lpToken, usdc, rewardsDistribution);
+  const stakingRewards = await stContract.deploy(lpToken, snow, rewardsDistribution);
   await stakingRewards.wait();
   console.log(await stContract.stakingRewardsInfoByStakingToken("0xBa20Bbc0799B8654b5061668b272037d4881a0a8"));
 }
