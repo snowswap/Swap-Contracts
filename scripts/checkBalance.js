@@ -9,7 +9,7 @@ const { ethers } = require("hardhat");
 const hre = require("hardhat");
 const fusdABI = require("../abi/fusd.json");
 const usdcABI = require("../abi/usdc.json");
-const lp = require("../abi/lp.json");
+const { usdc, fUSDC, fUSDT, fDAI } = require("../abi");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -23,24 +23,23 @@ async function main() {
 
   const [owner] = await ethers.getSigners();
   const wallet = "0x0bF48CAE99B82D4fE215F3432Bb6D7c3B54e75e5";
-  const lpToken = "0x1C9141857103C41D60986f76dfe6C1278E3EDAF0";
-  const contract = await ethers.getContractAt(lp, lpToken);
-  // usdc, fUSDC, fUSDT, fDAI;
-  // const contractUsdc = await ethers.getContractAt(usdcABI, usdc.addr);
-  // const contractFusdc = await ethers.getContractAt(usdcABI, fUSDC.addr);
-  // const contractFusdt = await ethers.getContractAt(usdcABI, fUSDT.addr);
-  // const contractFdai = await ethers.getContractAt(usdcABI, fDAI.addr);
+  usdc, fUSDC, fUSDT, fDAI;
+  const contractUsdc = await ethers.getContractAt(usdcABI, usdc.addr);
+  const contractFusdc = await ethers.getContractAt(usdcABI, fUSDC.addr);
+  const contractFusdt = await ethers.getContractAt(usdcABI, fUSDT.addr);
+  const contractFdai = await ethers.getContractAt(usdcABI, fDAI.addr);
 
-  const balance = await contract.balanceOf("0x4FB2bb19Df86feF113b2016E051898065f963CC5");
-  const ts = await contract.totalSupply();
-  // const balanceFusdc = await contractFusdc.balanceOf(wallet);
-  // const balanceFusdt = await contractFusdt.balanceOf(wallet);
-  // const balanceFfdai = await contractFdai.balanceOf(wallet);
+  const balanceUsdc = await contractUsdc.balanceOf(wallet);
+  const balanceFusdc = await contractFusdc.balanceOf(wallet);
+  const balanceFusdt = await contractFusdt.balanceOf(wallet);
+  const balanceFfdai = await contractFdai.balanceOf(wallet);
 
   console.log("balace:");
   console.log({
-    lp: balance.toString(),
-    ts: ts.toString(),
+    Usdc: balanceUsdc.toString(),
+    Fusdc: balanceFusdc.toString(),
+    Fusdt: balanceFusdt.toString(),
+    Ffdai: balanceFfdai.toString(),
   });
 }
 
