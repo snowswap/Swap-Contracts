@@ -5,12 +5,15 @@
 // Runtime Environment's members available in the global scope.
 const { BigNumber } = require("ethers");
 const hre = require("hardhat");
-const { usdc, fUSDC, fUSDT, fDAI } = require("../abi");
 
 const stableSwapABI = require("../abi/stableSwap.json");
 const usdcABI = require("../abi/usdc.json");
 const fvault = require("../abi/fvault.json");
-const stableSwap = "0x0bF48CAE99B82D4fE215F3432Bb6D7c3B54e75e5";
+const stableSwap = "0xfF55Dd6D32EfbDC49490377Eb9a1eA524D14fA62";
+const usdc = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+const fusdc = "0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE";
+const fusdt = "0x053c80eA73Dc6941F518a68E2FC52Ac45BDE7c9C";
+const fdai = "0xab7FA2B2985BCcfC13c6D86b1D5A17486ab1e04C";
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -22,24 +25,11 @@ async function main() {
 
   // We get the contract to deploy
   const { ethers } = hre;
-  const infinite = BigNumber.from("0xfffffffffffffffffffffffff");
-  
-  const contractUsdc = await ethers.getContractAt(usdcABI, usdc.addr);
-  const contractFusdc = await ethers.getContractAt(usdcABI, fUSDC.addr);
-  const contractFusdt = await ethers.getContractAt(usdcABI, fUSDT.addr);
-  const contractFdai = await ethers.getContractAt(usdcABI, fDAI.addr);
-  
-  await contractUsdc.approve(stableSwap, infinite);
-  await contractFusdc.approve(stableSwap, infinite);
-  await contractFusdt.approve(stableSwap, infinite);
-  await contractFdai.approve(stableSwap, infinite);
 
-  const contract = await ethers.getContractAt(stableSwapABI, stableSwap);
-  const res = await contract.add_liquidity(
-    ["60000000", "60000000", "60000000", "60000000000000000000"],
-    0
-  );
-  console.log(res);
+  const contractUsdc = await ethers.getContractAt(usdcABI, usdc);
+  await contractUsdc.approve(stableSwap, BigNumber.from("0xfffffffffffffffffffffffff"));
+
+  await contract.add_liquidity(["60000000", "60000000", "60000000", "60000000000000000000"], 0);
   console.log("Totaly 240 assets has been added to the pool");
 }
 

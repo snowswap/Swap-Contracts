@@ -44,7 +44,7 @@ async function main() {
 
   console.log("Deployed Lp Token Contract: ", lpToken.address);
 
-  const swapArtifact = await ethers.getContractFactory("StableSwapV3");
+  const swapArtifact = await ethers.getContractFactory("StableSwapV3_fUSD");
   swap = await swapArtifact.deploy(OwnerAddress, [USDC, FUSDC, FUSDT, FDAI], lpToken.address, _A, _fee, _admin_fee);
 
   await swap.deployed();

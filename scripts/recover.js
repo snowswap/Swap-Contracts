@@ -19,7 +19,9 @@ async function main() {
   const stakingAddr = "0x0482161E603B761493ed96CC42a81bfb18b40A34";
   const rewardAddr = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
+  const lp = "0xBa20Bbc0799B8654b5061668b272037d4881a0a8"; // TODO: change the LP
   const staking = await ethers.getContractAt(stakingABI, stakingAddr);
+  const factory = await ethers.getContractAt(factoryABI, factoryAddr);
   const rewardToken = await ethers.getContractAt(usdcABI, rewardAddr);
   // const stakingRewards = await st.deploy(snow, snow, rewardsDistribution);
 
@@ -28,10 +30,10 @@ async function main() {
   // uint256 public rewardsDuration;
   // uint256 public lastUpdateTime;
   // uint256 public rewardPerTokenStored;
-  await staking.recoverERC20("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 9983920);
+  await staking.recoverERC20("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 10000000);
   console.log("RecoverERC20");
 
-  console.log("Balance of staking:", (await rewardToken.balanceOf(stakingAddr)).toString());
+  console.log("Balance of staking:", await rewardToken.balanceOf(stakingAddr));
 }
 
 // We recommend this pattern to be able to use async/await everywhere
