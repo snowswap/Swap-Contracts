@@ -1,7 +1,9 @@
 const { expect } = require("chai");
 const { BigNumber } = require("ethers");
+const wETHAbi = require("../abi/weth.json");
+const fvaultAbi = require("../abi/fvault.json");
 
-describe("Swapping Contracts", function () {
+describe("crvETHSNOW Swapping Contracts", function () {
   const OwnerAddress = "0x4FB2bb19Df86feF113b2016E051898065f963CC5";
   const wETH = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"; //Decimal: 18
   const eCRV = "0xa3d87fffce63b53e0d54faa1cc983b7eb0b74a9c"; //Decimal: 18
@@ -29,7 +31,7 @@ describe("Swapping Contracts", function () {
 
     console.log("Deployed Lp Token Contract: ", lpToken.address);
 
-    const swapArtifact = await ethers.getContractFactory("StableSwapV3");
+    const swapArtifact = await ethers.getContractFactory("StableSwapV3_crvETHSnow");
     swap = await swapArtifact.deploy(
       OwnerAddress,
       [wETH, eCRV, steCRV, ankrCRV],
@@ -66,29 +68,29 @@ describe("Swapping Contracts", function () {
   describe("Add Liqudity", function () {
     // Requires all 4 coins for initial deposit
     it("Should have the exact amount of assets after the initializing of the Liqudity pool", async function () {
-      const contractUsdc = await ethers.getContractAt(usdcABI, USDC);
-      await contractUsdc.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+      const contractWETH = await ethers.getContractAt(wETHAbi, wETH);
+      await contractWETH.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
 
-      const contractFusdc = await ethers.getContractAt(fvault, FUSDC);
-      await contractFusdc.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+      const contractECrv = await ethers.getContractAt(fvaultAbi, eCRV);
+      await contractECrv.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
 
-      const contractFusdt = await ethers.getContractAt(fvault, FUSDT);
-      await contractFusdt.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+      const contractSteCrv = await ethers.getContractAt(fvaultAbi, steCRV);
+      await contractSteCrv.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
 
-      const contractFdai = await ethers.getContractAt(fvault, FDAI);
-      await contractFdai.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
+      const contractAnkrCRV = await ethers.getContractAt(fvaultAbi, ankrCRV);
+      await contractAnkrCRV.approve(swap.address, BigNumber.from("0xfffffffffffffffffffffffff"));
 
-      await swap.add_liquidity(["60000000", "60000000", "60000000", "60000000000000000000"], 0);
+      await swap.add_liquidity(["30000000000000000", "30000000000000000", "30000000000000000", "30000000000000000"], 0);
 
-      const usdcBalance = await swap.balances(0);
-      const fusdcBalance = await swap.balances(1);
-      const fusdtBalance = await swap.balances(2);
-      const fdaiBalance = await swap.balances(3);
+      const wETHBalance = await swap.balances(0);
+      const eCrvBalance = await swap.balances(1);
+      const steCrvBalance = await swap.balances(2);
+      const ankrCrvBalance = await swap.balances(3);
 
-      expect(usdcBalance).to.equal("60000000");
-      expect(fusdcBalance).to.equal("60000000");
-      expect(fusdtBalance).to.equal("60000000");
-      expect(fdaiBalance).to.equal("60000000000000000000");
+      expect(wETHBalance).to.equal("30000000000000000");
+      expect(eCrvBalance).to.equal("30000000000000000");
+      expect(steCrvBalance).to.equal("30000000000000000");
+      expect(ankrCrvBalance).to.equal("30000000000000000");
     });
   });
 });

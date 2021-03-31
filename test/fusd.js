@@ -3,7 +3,7 @@ const { BigNumber } = require("ethers");
 const usdcABI = require("../abi/usdc.json");
 const fvault = require("../abi/fvault.json");
 
-describe("Swapping Contracts", function () {
+describe("fUSD Swapping Contracts", function () {
   const OwnerAddress = "0x4FB2bb19Df86feF113b2016E051898065f963CC5";
   const USDC = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
   const FUSDC = "0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE";

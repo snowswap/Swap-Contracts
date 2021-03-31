@@ -12,7 +12,7 @@
     "add-f": "hardhat run ./scripts/addLiquidity.js --no-compile --network localhost",
     "full-test": "hardhat run ./scripts/combined.js --no-compile --network localhost",
     "test-script": "hardhat run ./scripts/test.js --no-compile --network localhost",
-    "test": "hardhat test --network localhost"
+    "test": "hardhat test --no-compile --network localhost"
   },
   "dependencies": {
     "@openzeppelin/test-helpers": "^0.5.10",
