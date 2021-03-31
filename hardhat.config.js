@@ -28,15 +28,17 @@ module.exports = {
       chainId: 1337,
     },
     mainnet: {
-      url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
+      url:
+        "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
       chainID: 1,
-      accounts: {
-        mnemonic: process.env.MEMONIC_KEY,
-      },
+      accounts: [process.env.PRIVATE_KEY],
+      gas: 500000
+      
     },
     hardhat: {
       forking: {
-        url: "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
+        url:
+          "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
       },
       accounts: {
         mnemonic: process.env.MEMONIC_KEY,
