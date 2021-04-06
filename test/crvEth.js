@@ -4,7 +4,7 @@ const wETHAbi = require("../abi/weth.json");
 const fvaultAbi = require("../abi/fvault.json");
 
 describe("crvETHSNOW Swapping Contracts", function () {
-  const OwnerAddress = "0x4FB2bb19Df86feF113b2016E051898065f963CC5";
+  const OwnerAddress = "0xf9589b4Da15fFE6825Df987E9651F7A4dB8a296E";
   const wETH = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"; //Decimal: 18
   const eCRV = "0xa3d87fffce63b53e0d54faa1cc983b7eb0b74a9c"; //Decimal: 18
   const steCRV = "0x06325440d014e39736583c165c2963ba99faf14e"; //Decimal: 18
