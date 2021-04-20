@@ -1,6 +1,3 @@
-import { task } from "hardhat/config";
-import { ethers } from "hardhat";
-
 import { HardhatUserConfig } from "hardhat/types";
 
 import "@nomiclabs/hardhat-waffle";
@@ -21,6 +18,7 @@ import { config as env } from "dotenv";
 //   }
 // });
 env();
+const MNEMONIC_KEY = process.env.MNEMONIC_KEY || "";
 const PRIVATE_KEY =
   process.env.PRIVATE_KEY ||
   "41e0d1636f937f2ae9c09902be4503ee1f7047e640b3d90dbda1419868b21efe";
@@ -52,14 +50,12 @@ const config: HardhatUserConfig = {
         url:
           "https://eth-mainnet.alchemyapi.io/v2/ULzKnrrt6iflDEREoi2qNJzqRL6N6y6X",
       },
-      accounts: [
-        {
-          privateKey: PRIVATE_KEY,
-          balance: "12300000000000000000000",
-          // mnemonic: process.env.MEMONIC_KEY,
-          // accountsBalance: "10000000000000000000000",
-        },
-      ],
+      accounts: {
+        // privateKey: PRIVATE_KEY,
+        // balance: "12300000000000000000000",
+        mnemonic: MNEMONIC_KEY,
+        accountsBalance: "10000000000000000000000",
+      },
       chainId: 1337,
     },
   },
